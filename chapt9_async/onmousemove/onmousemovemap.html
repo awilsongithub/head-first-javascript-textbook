@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>pirate map</title>
+    </head>
+    <body>
+        <img src="map.jpg" id="map" alt="" />
+        <p id="messageArea">Move mouse over map to see coordinates....</p>
+
+
+        <script type="text/javascript">
+            window.onload = init;
+
+            // init registers handler to map onmousemove property
+            function init() {
+                var map = document.getElementById("map");
+                map.onmousemove = showCoordinates;
+            }
+
+            // handler sets innerHTML of messageArea using clientX, Y properties of eventObj
+            function showCoordinates(eventObj){
+                var message = document.getElementById("messageArea");
+                var x = eventObj.clientX;
+                var y = eventObj.clientY;
+                message.innerHTML = "Your mouse is now over the coordinates x: " + x + ", y: " + y + ".";
+            }
+        </script>
+
+    </body>
+</html>
