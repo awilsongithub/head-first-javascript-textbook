@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- FROM BOOTSTRAP TEMPLATE -->
+        <meta charset="UTF-8">
+        <!-- Use latest and greatest rendering engine -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- scale 1 (100%) prevents shrinking -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Minified Bootstrap CSS FROM CDN. No optional theme since we want flatter look -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+        <title>Car constructor</title>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+                    <h1>Makin' Vehicles...</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+
+                    <!-- create a form to call making a new instance of car
+                    and call the start and drive methods -->
+                    <div id="form">
+                        <div class="form-group">
+                            <input type="text" id="make" placeholder="Enter a make" class="form-control">
+                            <input type="text" id="model" placeholder="Enter a model" class="form-control">
+                            <input type="button" class="btn btn-default" id="makeCarButton" value="Make The Car!">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- </div> end container  -->
+
+        <script src="car_constructor.js"></script>
+    </body>
+</html>
