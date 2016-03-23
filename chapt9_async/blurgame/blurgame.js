@@ -14,67 +14,80 @@ TODO to be able to toggel blur off adn on with click
 */
 
 // assign handler to onload property of window object
-window.onload = init;
-
-function init() {
-    // register handler to onclick, onmouseover, onmouseout properties of all imgs in document using loop. Image is a NodeList (array-like) so iterate each item
+// register handler to onclick, onmouseover, onmouseout properties of all imgs in document using loop. Image is a NodeList (array-like) so iterate each item
+window.onload = function() {
     var image = document.getElementsByTagName("img");
     for (var i = 0; i < image.length; i++ ) {
+        // assign reference not function expression if > 1 line function.
         image[i].onclick = showOnClick;
         image[i].onmouseover = showOnMouseOver;
         image[i].onmouseout = reblurOnMouseOut;
     }
-} // end init
-
-// the handler always gets passed the event object
-function showOnClick(eventObj) {
-    // get objects target property which is the element in the event object
-    var image = eventObj.target;
-    console.log('showAnswer called.');
-    // var isItBlurred = image.getAttribute("class");
-    // console.log(isItBlurred);
-    var name = image.id; // ie zero
-    name = "media/" + name + ".jpg";
-    image.src = name;
-    // setTimeout to reblur in 2 seconds, passing image argument
-    setTimeout(reblur, 4000, image);
+    var counterDisplayButton = document.getElementById('counter-button');
+    // call function which returns closure of incrementer f. and count variable and assign it to new variable, then register that variable to the onclick property of counterButton
+    var incrementCounter = makeCountUpdate();
+    counterDisplayButton.onclick = incrementCounter;
 }
 
-function reblur(image){
-    var name = image.id; // ie zero
-    name = "media/" + name + "blur.jpg";
-    image.setAttribute("src", name);
+// function to create handler closure with function to increment and display count in message-area
+function makeCountUpdate() {
+    var count = 0;
+    var message = "Times button has been clicked: ";
+    var div = document.getElementById('message-area');
+    function incrementCount() {
+        count++;
+        div.innerHTML = message + count;
+    }
+    return incrementCount; // will return as a closure (with its environment)
 }
 
+// clear/blur using css class
 function showOnMouseOver(eventObj) {
     var image = eventObj.target;
-    var name = image.id; // ie zero
-    name = "media/" + name + ".jpg";
-    image.src = name;
+    var name = image.getAttribute("class");
+    console.log(name);
+    name = "clear";
+    image.setAttribute("class", name);
 }
 
-function reblurOnMouseOut(eventObj){
+// clear/blur using css class
+function reblurOnMouseOut(eventObj) {
     var image = eventObj.target;
-    var name = image.id; // ie zero
-    name = "media/" + name + "blur.jpg";
-    image.setAttribute("src", name);
+    var name = image.getAttribute("class");
+    console.log(name);
+    name = "blurred";
+    image.setAttribute("class", name);
 }
 
-
-// FAILED EFFORT TO SETUP REBLUR
-// if (isItBlurred === "blurred") {
-//     console.log('class is blurred.');
+// the handler always gets passed the event object
+// get objects target property which is the element in the event object
+// function showOnClick(eventObj) {
+//     var image = eventObj.target;
+//     console.log('showAnswer called.');
 //     var name = image.id; // ie zero
 //     name = "media/" + name + ".jpg";
 //     image.src = name;
-//     image.class = "focused";
-//     console.log(image.class);
-//     return;
+//     setTimeout(reblur, 4000, image); // setTimeout passing image argument
 // }
-// else if (isItBlurred === "focused") {
-//     var name = image.id;
+//
+// function reblur(image){
+//     var name = image.id; // ie zero
 //     name = "media/" + name + "blur.jpg";
+//     image.setAttribute("src", name);
+// }
+
+// clear/blur using img src
+// function showOnMouseOver(eventObj) {
+//     var image = eventObj.target;
+//     var name = image.id; // ie zero
+//     name = "media/" + name + ".jpg";
 //     image.src = name;
-//     image.class = "blurred";
-//     return;
+// }
+
+// clear/blur using img src
+// function reblurOnMouseOut(eventObj){
+//     var image = eventObj.target;
+//     var name = image.id; // ie zero
+//     name = "media/" + name + "blur.jpg";
+//     image.setAttribute("src", name);
 // }

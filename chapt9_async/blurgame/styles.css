@@ -4,3 +4,15 @@ body {
 img {
     margin: 20px;
 }
+#counter-button, #message-area {
+    display: inline-block;
+    margin: 20px;
+}
+
+/*using css class to blur instead of img src swap*/
+.blurred {
+    -webkit-filter: blur(10px);
+}
+.clear {
+    -webit-filter: blur(0px);
+}

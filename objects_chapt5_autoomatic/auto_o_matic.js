@@ -5,8 +5,8 @@ AND DECIDES IF WE SHOULD CONSIDER PURCHASING.
 
 LEARNING TAKEAWAYS:
 1. function encapsulation is nice. call it and it returns what you need. done.
-2. object blueprint is nice. Not sure if its a "constructor"
-3. an object is a nice encapsulated data type. We can work with it.
+2. object blueprint is nice. This is not technically a constructor though.
+3. an object is a nice encapsulated data type.
 4. functions that use a selection of other function(ality) rock.
 ==========================================================
 */
@@ -46,25 +46,30 @@ function makeCar() {
             this.hasFuel = true;
         },
         start: function(){
+            console.log('start method called');
+
             if (this.hasFuel == true){
                 this.started = true;
                 var wantToDrive = prompt('vrooooom. Engine running. Want to drive (enter Y or N)');
-                if (wantToDrive == "Y"){
+                if (wantToDrive == "Y" || wantToDrive == 'y'){
                     this.drive();
                 }
             }
             else {
                 var wantToFuel = prompt('You need some fuel first. want to add fuel (Y or N)');
-                if (wantToFuel == "Y") {
+                if (wantToFuel == "Y" || wantToFuel == 'y') {
                     this.addFuel();
                     this.start();
+                } else {
+                    alert('OK. have a nice day.');
                 }
             }
         },
+
         drive: function(){
             var wantToFuel = prompt('vroom, vroom, vrooom.... speed 20...30...40...50...60! Crossing through Delaware oh boy... I can see the Atlantic... uh oh, running out of gas. Want to add fuel (enter Y or N)');
             this.hasFuel = false;
-            if (wantToFuel == "Y") {
+            if (wantToFuel == "Y" || wantToFuel == 'y') {
                 this.addFuel();
                 this.start();
             }
@@ -75,7 +80,7 @@ function makeCar() {
         },
         stop: function(){
             this.started = false;
-            alert('Ignition off. Click button next time you want to drive!');
+            alert('Ignition off. Click button next time you want to make a new car and drive it!');
         }
 
     };
@@ -101,13 +106,16 @@ function displayCar(car) {
 
 // call above functions to make car and display its properties
 function makeAndDisplayCar(){
-    var carToConsider = makeCar();
-    displayCar(carToConsider);
+    var carToConsider = makeCar(); // makes an instance of car and returns it
+    displayCar(carToConsider); // logs info about instance we just made
+
+    console.log(carToConsider);
+
     var wantToStart = prompt('Want to start her up? (enter Y or N)');
-    wantToStart.toUpperCase(); // built in string method
+    wantToStart = wantToStart.toUpperCase(); // built in string method
+    console.log(wantToStart);
+
     if (wantToStart == "Y") {
-        carToConsider.start();
+        carToConsider.start(); // invokes start method which triggers other methods.
     }
-
-
 }

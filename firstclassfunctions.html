@@ -5,16 +5,23 @@
         <title>first class functions</title>
     </head>
     <body>
-        <h1>Testing First Class Functions Here</h1>
-        <p>All access pass for them functions. Pass em around y'all.</p>
+        <h1>First Class Functions Now Boarding</h1>
 
         <script type="text/javascript">
             alert("hello");
 
             // create an array of passenger objects with name and paid boolean
-            var passengers = [  {name: "Adam", paid: true, ticket: "firstclass"},
-                                {name: "Dr. Evel", paid: true, ticket: "coach"}
-                            ];
+            var passengers = [
+                {name: "Adam", paid: true, ticket: "firstclass"},
+                {name: "Dr. Evel", paid: true, ticket: "coach"},
+                {name: "slimey", paid: true, ticket: "firstclass"}
+                ];
+
+            // drinks object has properties we call. it keeps our drinks data separate from our code logic and thus more flexible
+            var drinks = {
+                firstClassDrinks: "martini, perrier, redbull or champagne monsieur?",
+                coachDrinks: "tap water or dr. pepper sir?"
+            };
 
             //////////////////////////////////////////
             //         CAN PLANE TAKEOFF?           //
@@ -36,13 +43,13 @@
             function someoneOnNoFlyList(passenger) {
                 // returns t if fail
                 console.log('checking ' + passenger.name + ' against no fly list.');
-                return (passenger.name === "Dr. Evel");
+                return (passenger.name === "Dr. Evel"); // true if on no fly. if we had an array we could iterate and compare each
             }
 
             // test function checkNotPaid? returning T is fail
             function checkNotPaid(passenger){
                 console.log("checking if " + passenger.name + " has paid...");
-                return (!passenger.paid); // returns opposite of paid boolean
+                return (!passenger.paid); // opposite of boolean
             }
 
             // call canPlaneTakeOff testing no fly
@@ -69,43 +76,68 @@
             //////////////////////////////////////////
 
             // servePassengers iterates them calling serveCustomer
-            function serveThePassengers(passengers) {
+            function serveThePassengers(passengers, drinks) {
                 for (var i = 0; i < passengers.length; i++ ) {
-                    serveCustomer(passengers[i]);
+                    serveCustomer(passengers[i], drinks);
                 }
             }
 
-            // serveCustomer uses CreateDrinkOrderFunction to return getDrinkOrderFunction for that customer based on their ticket
-            function serveCustomer(passenger) {
+            // serveCustomer uses CreateDrinkOrderFunction to return a functino to get drink order for that particular passenger based on their ticket class.  Then it invokes that custom function.
+            function serveCustomer(passenger, drinks) {
                 alert("now serving " + passenger.name + ".");
-                var getDrinkOrderFunction = CreateDrinkOrderFunction(passenger);
+                var getDrinkOrderFunction = CreateDrinkOrderFunction(passenger, drinks);
                 getDrinkOrderFunction(); // alert custom take order phrase
             }
 
-            // CreateDrinkOrderFunction customizes mssg based on ticket
-            function CreateDrinkOrderFunction(passenger) {
+            // Refactored CreateDrinkOrderFunction using drinks object
+            // customizes function based on ticket using passengers array and drinks object.
+            function CreateDrinkOrderFunction(passenger, drinks) {
                 var orderFunction;
+                var genericOrderMessage = "Hello " + passenger.name + ". Would you like ";
+                var customDrinks;
                 if (passenger.ticket === "firstclass") {
-                    orderFunction = function() {
-                        alert("Good evening " + passenger.name + " will it be wine, beer or perrier for you today?");
-                    }
-                } else {
-                    orderFunction = function() {
-                        alert("want some pop " + passenger.name + "?");
-                    }
+                    customDrinks = drinks.firstClassDrinks;
+                }
+                else if (passenger.ticket === "coach") {
+                    customDrinks = drinks.coachDrinks;
+                }
+                var customOrderMessage = genericOrderMessage + customDrinks;
+                orderFunction = function() {
+                    alert(customOrderMessage);
                 }
                 return orderFunction;
             }
 
             // call serveThePassengers to initiate serve code
-            serveThePassengers(passengers); 
-
-
-
-
-
+            serveThePassengers(passengers, drinks);
 
         </script>
 
     </body>
 </html>
+
+
+
+<!--
+===================================================
+OLD CODE
+===================================================
+
+
+// CreateDrinkOrderFunction customizes mssg based on ticket
+// function CreateDrinkOrderFunction(passenger) {
+//     var orderFunction;
+//     if (passenger.ticket === "firstclass") {
+//         orderFunction = function() {
+//             alert("Good evening " + passenger.name + " will it be wine, beer or perrier for you today?");
+//         }
+//     } else {
+//         orderFunction = function() {
+//             alert("want some pop " + passenger.name + "?");
+//         }
+//     }
+//     return orderFunction;
+// }
+
+===================================================
+-->
