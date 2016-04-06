@@ -14,12 +14,14 @@ var caloriesPerServing = [ 100, 150, 350, 400];
 // and to get the longest distance
 function printAndGetHighestValue(x) {
 
+    // iterate array, output item # and it's value.
     var highest = 0;
     var output;
     for (var i=0; i < x.length; i++ ){
         output = ('Item # ' + i + ' has a value of ' + x[i] + '.');
         console.log(output);
     }
+    // iterate over array, test for highest, update value of highest item(s). We will later use this value to push any array items with highest value into an array list of items with the highest value.
     for (var num =0; num < x.length; num++) {
         if (x[num] > highest) {
             highest = x[num];
@@ -28,9 +30,9 @@ function printAndGetHighestValue(x) {
     return highest;
 }
 
-// get item(s) with highest value(s) using array and var highest
+// get item(s) with highest value(s) using array and var highest which was returned from the other function
 function getHighestItems(array, highest) {
-    var highestItems = [];
+    var highestItems = []; // might be multiple if a tie
     for (var i = 0; i < array.length; i++) {
         if (array[i] == highest) {
             highestItems.push(i);

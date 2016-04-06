@@ -19,7 +19,7 @@ window.onload = function() {
     var image = document.getElementsByTagName("img");
     for (var i = 0; i < image.length; i++ ) {
         // assign reference not function expression if > 1 line function.
-        image[i].onclick = showOnClick;
+        // image[i].onclick = showOnClick;
         image[i].onmouseover = showOnMouseOver;
         image[i].onmouseout = reblurOnMouseOut;
     }
@@ -41,7 +41,7 @@ function makeCountUpdate() {
     return incrementCount; // will return as a closure (with its environment)
 }
 
-// clear/blur using css class
+// clear/blur using css class get and setAttribute 
 function showOnMouseOver(eventObj) {
     var image = eventObj.target;
     var name = image.getAttribute("class");
